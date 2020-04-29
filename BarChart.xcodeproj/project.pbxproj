@@ -90,8 +90,8 @@
 		5C8E4A262457E63500416FBD /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				5C8E4A222457DAE500416FBD /* ChartData.swift */,
 				5C810E57245A0CCC008B15A8 /* ChartItem.swift */,
+				5C8E4A222457DAE500416FBD /* ChartData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
