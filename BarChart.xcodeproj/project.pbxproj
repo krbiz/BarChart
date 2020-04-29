@@ -13,7 +13,6 @@
 		5C8E4A16245779F500416FBD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C8E4A15245779F500416FBD /* Assets.xcassets */; };
 		5C8E4A19245779F500416FBD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C8E4A17245779F500416FBD /* LaunchScreen.storyboard */; };
 		5C8E4A232457DAE500416FBD /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8E4A222457DAE500416FBD /* ChartData.swift */; };
-		5C8E4A252457E1CE00416FBD /* CharItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8E4A242457E1CE00416FBD /* CharItem.swift */; };
 		5C8E4A292457E68600416FBD /* MyChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8E4A282457E68600416FBD /* MyChart.swift */; };
 		62B3BB3008EEC0B7C6E19071 /* Pods_BarChart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 010677E3A3EE8A3A9B257651 /* Pods_BarChart.framework */; };
 /* End PBXBuildFile section */
@@ -28,7 +27,6 @@
 		5C8E4A18245779F500416FBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5C8E4A1A245779F500416FBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C8E4A222457DAE500416FBD /* ChartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartData.swift; sourceTree = "<group>"; };
-		5C8E4A242457E1CE00416FBD /* CharItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharItem.swift; sourceTree = "<group>"; };
 		5C8E4A282457E68600416FBD /* MyChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyChart.swift; sourceTree = "<group>"; };
 		5DE77E0D356F5B10E31E3DAC /* Pods-BarChart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BarChart.release.xcconfig"; path = "Target Support Files/Pods-BarChart/Pods-BarChart.release.xcconfig"; sourceTree = "<group>"; };
 		6E7ABCB7C4151D93C9C34F6C /* Pods-BarChart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BarChart.debug.xcconfig"; path = "Target Support Files/Pods-BarChart/Pods-BarChart.debug.xcconfig"; sourceTree = "<group>"; };
@@ -82,7 +80,6 @@
 		5C8E4A262457E63500416FBD /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				5C8E4A242457E1CE00416FBD /* CharItem.swift */,
 				5C8E4A222457DAE500416FBD /* ChartData.swift */,
 			);
 			path = Model;
@@ -236,7 +233,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C8E4A11245779ED00416FBD /* ViewController.swift in Sources */,
-				5C8E4A252457E1CE00416FBD /* CharItem.swift in Sources */,
 				5C8E4A0D245779ED00416FBD /* AppDelegate.swift in Sources */,
 				5C8E4A0F245779ED00416FBD /* SceneDelegate.swift in Sources */,
 				5C8E4A292457E68600416FBD /* MyChart.swift in Sources */,

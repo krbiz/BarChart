@@ -7,111 +7,45 @@
 //
 
 import UIKit
-import SnapKit
 
 class MyChart: UIView {
     
-    let distanceBetweenColumns: CGFloat = 10
+    var distanceBetweenColumns = 10.0
+    var animationDuration = 0.5
+    var animationFPS = 60.0
     
-    var charts: [ChartData]?
-    var currentChartIndex = 0
-    var columnsPath: [CGRect] = []
+    var charts: [ChartData] = []
     
-    var timerAnimation: Timer?
+    private var currentChartIndex = 0
+    private var columnsPath: [CGRect] = []
+    private var timerDelay: Timer?
     
     var columnWidth: CGFloat {
-        guard let charts = charts else { return 0 }
+        if charts.isEmpty { return 0 }
         let chart = charts[currentChartIndex]
         let count = CGFloat(chart.items.count)
-        let width = (self.bounds.width - distanceBetweenColumns * (count - 1)) / count
+        let width = (bounds.width - CGFloat(distanceBetweenColumns) * (count - 1)) / count
         return width
     }
     
-    // MARK: - Initializations
+    // MARK: - Override Methods
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-
-        let displayLink = CADisplayLink(target: self, selector: #selector(update))
-        displayLink.add(to: .current, forMode: .common)
-        
-    }
-    
-    convenience init(charts: [ChartData]) {
-        self.init(frame: .zero)
-        self.charts = charts
-    }
-    
-    private func setupColumnsPath() {
-        guard let charts = charts else { return }
-        let items = charts[currentChartIndex].items
-        
-        columnsPath.removeAll()
-        for (index, item) in items.enumerated() {
-            let rect = CGRect(x: CGFloat(index) * (columnWidth + distanceBetweenColumns),
-                              y: self.bounds.height,
-                              width: columnWidth,
-                              height: -convertValueToHeight(value: CGFloat(item.value)))
-            columnsPath.append(rect)
-        }
-        setNeedsDisplay()
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let charts = charts else { return }
-        let currentItems = charts[currentChartIndex].items
-        let nextItems = currentChartIndex < charts.count - 1 ? charts[currentChartIndex + 1].items : charts[0].items
-        
-        let animationDuration = 0.5
-        
-        let deltasForCurrentChart =
-            currentItems.map({ convertValueToHeight(value: CGFloat($0.value / (animationDuration / 2 * 60))) })
-        
-        let deltasForNextChart =
-            nextItems.map({ convertValueToHeight(value: CGFloat($0.value / (animationDuration / 2 * 60))) })
-        
-        var repeatsCount = Int(animationDuration * 60)
-        
-        timerAnimation = Timer.scheduledTimer(withTimeInterval: 1/60, repeats: true, block: { timer in
-            for (index, path) in self.columnsPath.enumerated() {
-                let delta = repeatsCount > Int(animationDuration * 60) / 2 ? deltasForCurrentChart[index] : -deltasForNextChart[index]
-                self.columnsPath[index] =
-                    CGRect(origin: path.origin, size: CGSize(width: path.width, height: -path.height + delta))
-            }
-            repeatsCount -= 1
-            self.setNeedsDisplay()
-            
-            if repeatsCount == Int(animationDuration * 60) / 2 {
-                self.currentChartIndex = self.currentChartIndex < charts.count - 1 ? self.currentChartIndex + 1 : 0
-            }
-            
-            if repeatsCount == 0 {
-                timer.invalidate()
-                self.setupColumnsPath()
-            }
-        })
-    }
-    
-    
-    @objc func update() {
-        //print("Updating!")
+    override func didMoveToSuperview() {
+        startAnimation()
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         setupColumnsPath()
+        setNeedsDisplay()
     }
     
-    func convertValueToHeight(value: CGFloat) -> CGFloat {
-        return bounds.height / 100 * value
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        changeChartWithAnimation()
     }
     
     override func draw(_ rect: CGRect) {
-        guard let charts = charts, !columnsPath.isEmpty else { return }
+        if charts.isEmpty || columnsPath.isEmpty { return }
         let items = charts[currentChartIndex].items
         
         for (index, item) in items.enumerated() {
@@ -120,6 +54,86 @@ class MyChart: UIView {
             item.color.setFill()
             rectanglePath.fill()
         }
+    }
+    
+    // MARK: - Public Methods
+    
+    func addChart(data: ChartData) {
+        charts.append(data)
+    }
+    
+    func startAnimation() {
+        timerDelay?.invalidate()
+        isUserInteractionEnabled = true
+        timerDelay = Timer.scheduledTimer(withTimeInterval: 5, repeats: false, block: { _ in
+            self.changeChartWithAnimation()
+        })
+    }
+    
+    func stopAnimation() {
+        isUserInteractionEnabled = false
+        timerDelay?.invalidate()
+    }
+    
+    // MARK: - Private Methods
+    
+    private func convertValueToHeight(value: CGFloat) -> CGFloat {
+        return bounds.height / CGFloat(ChartItem.maxValue - ChartItem.minValue) * value
+    }
+    
+    private func setupColumnsPath(withZeroHeight: Bool = false) {
+        if charts.isEmpty { return }
+        let items = charts[currentChartIndex].items
+        
+        columnsPath.removeAll()
+        for (index, item) in items.enumerated() {
+            let rect = CGRect(x: CGFloat(index) * (columnWidth + CGFloat(distanceBetweenColumns)),
+                              y: self.bounds.height,
+                              width: columnWidth,
+                              height: withZeroHeight ? 0 : -convertValueToHeight(value: CGFloat(item.value)))
+            columnsPath.append(rect)
+        }
+    }
+    
+    private func changeChartWithAnimation() {
+        if charts.isEmpty { return }
+        
+        let currentItems = charts[currentChartIndex].items
+        let deltasForCurrentChart = currentItems.map({
+            convertValueToHeight(value: CGFloat($0.value / (animationDuration / 2 * animationFPS)))
+        })
+        
+        let nextItems = currentChartIndex < charts.count - 1 ? charts[currentChartIndex + 1].items : charts[0].items
+        let deltasForNextChart = nextItems.map({
+            convertValueToHeight(value: CGFloat($0.value / (animationDuration / 2 * animationFPS)))
+        })
+        
+        var repeatCount = Int(animationDuration * animationFPS)
+        let midRepeatCount = repeatCount / 2
+        stopAnimation()
+        
+        Timer.scheduledTimer(withTimeInterval: 1 / animationFPS, repeats: true, block: { timer in
+            for (index, path) in self.columnsPath.enumerated() {
+                let delta = repeatCount > midRepeatCount ? deltasForCurrentChart[index] : -deltasForNextChart[index]
+                let newRect = CGRect(origin: path.origin, size: CGSize(width: path.width, height: -path.height + delta))
+                self.columnsPath[index] = newRect
+                    
+            }
+            repeatCount -= 1
+            
+            if repeatCount == midRepeatCount {
+                self.currentChartIndex = self.currentChartIndex < self.charts.count - 1 ? self.currentChartIndex + 1 : 0
+                self.setupColumnsPath(withZeroHeight: true)
+            }
+            
+            if repeatCount == 0 {
+                timer.invalidate()
+                self.setupColumnsPath()
+                self.startAnimation()
+            }
+            
+            self.setNeedsDisplay()
+        })
     }
     
 }
