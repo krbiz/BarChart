@@ -8,16 +8,6 @@
 
 import UIKit
 
-struct ChartItem {
-    
-    static let minValue = 0.0
-    static let maxValue = 100.0
-    
-    let title: String
-    var value: Double
-    let color: UIColor
-}
-
 struct ChartData {
     
     var items: [ChartItem] = []
@@ -40,5 +30,5 @@ struct ChartData {
     mutating func addItem(_ item: ChartItem) {
         items.append(item)
     }
-    
+
 }

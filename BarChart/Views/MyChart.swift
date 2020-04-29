@@ -81,7 +81,7 @@ class MyChart: UIView {
         return bounds.height / CGFloat(ChartItem.maxValue - ChartItem.minValue) * value
     }
     
-    private func setupColumnsPath(withZeroHeight: Bool = false) {
+    private func setupColumnsPath(withZeroHeight zeroHeight: Bool = false) {
         if charts.isEmpty { return }
         let items = charts[currentChartIndex].items
         
@@ -90,7 +90,7 @@ class MyChart: UIView {
             let rect = CGRect(x: CGFloat(index) * (columnWidth + CGFloat(distanceBetweenColumns)),
                               y: self.bounds.height,
                               width: columnWidth,
-                              height: withZeroHeight ? 0 : -convertValueToHeight(value: CGFloat(item.value)))
+                              height: zeroHeight ? 0 : -convertValueToHeight(value: CGFloat(item.value)))
             columnsPath.append(rect)
         }
     }
@@ -135,5 +135,5 @@ class MyChart: UIView {
             self.setNeedsDisplay()
         })
     }
-    
+
 }

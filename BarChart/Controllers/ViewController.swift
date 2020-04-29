@@ -16,18 +16,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupChart()
-        
-        let button = UIButton()
-        button.setTitle("Click", for: .normal)
-        button.addTarget(self, action: #selector(actionbuttonClick), for: .touchUpInside)
-        view.addSubview(button)
-        button.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
-        }
-    }
-    
-    @objc func actionbuttonClick() {
-        myChart.addChart(data: ChartData.randomData())
     }
     
     func setupChart() {
@@ -41,11 +29,11 @@ class ViewController: UIViewController {
         myChart.backgroundColor = #colorLiteral(red: 0.06622779188, green: 0.06622779188, blue: 0.06622779188, alpha: 1)
         
         myChart.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(10)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(10)
             make.height.equalToSuperview().multipliedBy(0.5)
             make.centerY.equalToSuperview()
         }
     }
-    
+
 }
 

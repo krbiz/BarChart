@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C810E58245A0CCC008B15A8 /* ChartItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C810E57245A0CCC008B15A8 /* ChartItem.swift */; };
 		5C8E4A0D245779ED00416FBD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8E4A0C245779ED00416FBD /* AppDelegate.swift */; };
 		5C8E4A0F245779ED00416FBD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8E4A0E245779ED00416FBD /* SceneDelegate.swift */; };
 		5C8E4A11245779ED00416FBD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8E4A10245779ED00416FBD /* ViewController.swift */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		010677E3A3EE8A3A9B257651 /* Pods_BarChart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BarChart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C810E57245A0CCC008B15A8 /* ChartItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartItem.swift; sourceTree = "<group>"; };
 		5C8E4A09245779ED00416FBD /* BarChart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BarChart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C8E4A0C245779ED00416FBD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5C8E4A0E245779ED00416FBD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -44,6 +46,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5C810E59245A0D05008B15A8 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				5C8E4A0C245779ED00416FBD /* AppDelegate.swift */,
+				5C8E4A0E245779ED00416FBD /* SceneDelegate.swift */,
+				5C8E4A15245779F500416FBD /* Assets.xcassets */,
+				5C8E4A17245779F500416FBD /* LaunchScreen.storyboard */,
+				5C8E4A1A245779F500416FBD /* Info.plist */,
+			);
+			path = "Support Files";
+			sourceTree = "<group>";
+		};
 		5C8E4A00245779ED00416FBD = {
 			isa = PBXGroup;
 			children = (
@@ -65,24 +79,21 @@
 		5C8E4A0B245779ED00416FBD /* BarChart */ = {
 			isa = PBXGroup;
 			children = (
-				5C8E4A0C245779ED00416FBD /* AppDelegate.swift */,
-				5C8E4A0E245779ED00416FBD /* SceneDelegate.swift */,
-				5C8E4A262457E63500416FBD /* Model */,
+				5C8E4A262457E63500416FBD /* Models */,
 				5C8E4A2A2457E6A300416FBD /* Views */,
 				5C8E4A272457E64500416FBD /* Controllers */,
-				5C8E4A15245779F500416FBD /* Assets.xcassets */,
-				5C8E4A17245779F500416FBD /* LaunchScreen.storyboard */,
-				5C8E4A1A245779F500416FBD /* Info.plist */,
+				5C810E59245A0D05008B15A8 /* Support Files */,
 			);
 			path = BarChart;
 			sourceTree = "<group>";
 		};
-		5C8E4A262457E63500416FBD /* Model */ = {
+		5C8E4A262457E63500416FBD /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				5C8E4A222457DAE500416FBD /* ChartData.swift */,
+				5C810E57245A0CCC008B15A8 /* ChartItem.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		5C8E4A272457E64500416FBD /* Controllers */ = {
@@ -233,6 +244,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C8E4A11245779ED00416FBD /* ViewController.swift in Sources */,
+				5C810E58245A0CCC008B15A8 /* ChartItem.swift in Sources */,
 				5C8E4A0D245779ED00416FBD /* AppDelegate.swift in Sources */,
 				5C8E4A0F245779ED00416FBD /* SceneDelegate.swift in Sources */,
 				5C8E4A292457E68600416FBD /* MyChart.swift in Sources */,
@@ -375,7 +387,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7RCT4GHCWV;
-				INFOPLIST_FILE = BarChart/Info.plist;
+				INFOPLIST_FILE = "BarChart/Support Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -394,7 +406,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7RCT4GHCWV;
-				INFOPLIST_FILE = BarChart/Info.plist;
+				INFOPLIST_FILE = "BarChart/Support Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
